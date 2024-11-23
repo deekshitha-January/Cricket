@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select a Wicketkeeper</title>
+  <link rel="stylesheet" href="style2.css">
+
+</head>
+<body>
+  <h1>Select a Wicketkeeper</h1>
+       <!-- Menu Icon -->
+       <div class="menu" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+       </div>
+    <!-- Dropdown Menu -->
+    <div class="menu-dropdown">
+      <a href="index.html">Home</a>
+      <a href="batter.html">Select Batter</a>
+      <a href="bowler.html">Select Bowler</a>
+      <a href="wicketkeeper.html">Select Wicketkeeper</a>
+      <a href="play.html">Go to Play Page</a>
+    </div>
+  
+  
+  <div class="player-list">
+    <!-- Wicketkeeper Cards -->
+    <div class="player-card">
+      <img src="images_wc/rahul_wc.png" alt="KL Rahul">
+      <p>KL Rahul</p>
+      <button onclick="selectPlayer('KL Rahul', 'images_wc/rahul_wc.png')">Select</button>
+    </div>
+
+    
+    <div class="player-card">
+      <img src="images_wc/rishab_wc.png" alt="Rishabh Pant">
+      <p>Rishabh Pant</p>
+      <button onclick="selectPlayer('Rishabh Pant', 'images_wc/rishab_wc.png')">Select</button>
+    </div>
+        
+    <div class="player-card">
+      <img src="images_wc/Jadeja.png" alt="Jadeja">
+      <p>Ravindra Jadeja</p>
+      <button onclick="selectPlayer('Ravindra Jadeja', 'images_wc/Jadeja.png')">Select</button>
+    </div>
+    <div class="player-card">
+      <img src="images_wc/sanju.png" alt="Sanju Samson">
+      <p>Sanju Samson</p>
+      <button onclick="selectPlayer('Sanju Samson', 'images_wc/sanju.png')">Select</button>
+    </div>
+    <!-- Add more players as needed -->
+  </div>
+  <!-- Next Button -->
+  <button class="next-btn" onclick="nextPage()">Next</button>
+
+  <script>
+      // Function to toggle menu visibility
+      function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('active');
+    }
+    function selectPlayer(name, photo) {
+  console.log({ name, photo }); // Debugging line
+  localStorage.setItem('wicketkeeper', JSON.stringify({ name, photo }));
+  // alert(`${name} selected as Wicketkeeper!`);
+}
+
+    function nextPage() {
+      // Redirect to the next page
+      window.location.href = 'play.html'; // Replace with the actual next page URL
+    }
+  </script>
+</body>
+</html>

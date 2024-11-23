@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Let's Play Cricket</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Select players</h1>
+
+    <div class="buttons">
+      <button onclick="goToPage('batter')">Batter</button>
+      <button onclick="goToPage('bowler')">Bowler</button>
+      <button onclick="goToPage('wicketkeeper')">Wicketkeeper</button>
+    </div>
+
+    <div class="msg-container">
+      <p id="msg">Play your move</p>
+    </div>
+    <script>
+        // Function to toggle menu visibility
+     function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('active');
+    }
+         function goToPage(role) {
+      // Redirect to the role-specific page
+      window.location.href = `${role}.html`;
+    }
+    </script>
+  </body>
+</html>

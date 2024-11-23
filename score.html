@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricket Game - Score</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      background-color: #081b31;
+      color: #fff;
+      width: 100%;
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-bottom: 1rem;
+      font-size: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .menu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white; /* Changed to white */
+    margin: 5px 0;
+    transition: transform 0.3s;
+}
+
+/* Dropdown Menu Styling */
+.menu-dropdown {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.menu-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #081b31;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.menu-dropdown a:hover {
+    background-color: #081b31;
+    color: white;
+}
+
+/* Active class to show the dropdown menu */
+.menu.active + .menu-dropdown {
+    display: block;
+}
+
+
+    .game-container {
+      width: 50%;
+      text-align: center;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 1.1rem;
+      width: 100px;
+      margin: 20px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #081b31;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+
+    
+    button:hover {
+      background-color: #1a69ad;
+    }
+
+    .scoreboard {
+      margin-top: 20px;
+      font-size: 1.2rem;
+    }
+
+    .score {
+      margin-top: 10px;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: #2c3e50;
+      font-weight: bold;
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      width: 80%;
+      margin: 20px auto;
+      animation: fadeIn 1.5s ease-in-out;
+      text-align: center;
+    }
+
+    .description p {
+      margin: 0;
+      padding: 10px;
+      color: #2c3e50;
+    }
+
+    .scoreboard,
+    .description {
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Animation for description */
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Score Highlight for Batter, Bowler, Wicketkeeper */
+    .scoreboard p span {
+      font-weight: bold;
+      color: #081b31;
+    }
+
+    /* Style for player photos */
+    .player-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .score-with-photo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    #restartBtn, #nextBallBtn, #startBtn{
+      background-color: #145369;
+    }
+    #keeperScore, #bowlerScore, #batterScore, #currentBall{
+        background-color: #145369;
+        color: white;
+        margin: 10px;
+        border-radius: 4px;
+        padding: 10px;
+    }
+    #currentBall{
+      display: inline-block;
+      background-color:#B9B7BD;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Cricket Game - Score Board</h1>
+   <!-- Menu Icon -->
+   <div class="menu" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="menu-dropdown">
+    <a href="index.html">Home</a>
+    <a href="batter.html">Select Batter</a>
+    <a href="bowler.html">Select Bowler</a>
+    <a href="wicketkeeper.html">Select Wicketkeeper</a>
+    <a href="play.html">Go to Play Page</a>
+  </div>
+
+  <div class="game-container">
+    <!-- Input for the number of balls -->
+    <input type="number" id="numBalls" placeholder="Balls" min="1" required>
+    <button id="startBtn" onclick="startGame()">Start Play</button>
+    <button id="nextBallBtn" style="display: none;" onclick="playBall()">Play Next Ball</button>
+    <button id="restartBtn" style="display: none;" onclick="restartGame()">Restart Game</button>
+
+    <div class="scoreboard">
+      <p id="currentBall">Balls Remaining: 0</p>
+      <div class="score-with-photo" id="scoreBoard">
+        <span id="batterScore">Batter - 0</span>
+        <span id="bowlerScore">Bowler - 0</span>
+        <span id="keeperScore">Wicketkeeper - 0</span>
+      </div>
+    </div>
+
+    <div class="description" id="description"></div>
+  </div>
+
+  <script>
+    // Retrieve player data from localStorage
+    const batter = JSON.parse(localStorage.getItem('batter'));
+    const bowler = JSON.parse(localStorage.getItem('bowler'));
+    const keeper = JSON.parse(localStorage.getItem('wicketkeeper'));
+
+    // Display Player Names
+    const batterName = batter ? batter.name : 'Batter';
+    const bowlerName = bowler ? bowler.name : 'Bowler';
+    const keeperName = keeper ? keeper.name : 'Wicketkeeper';
+
+    // Get Player Photos from localStorage
+    const batterPhoto = batter ? batter.photo : '';
+    const bowlerPhoto = bowler ? bowler.photo : '';
+    const keeperPhoto = keeper ? keeper.photo : '';
+
+    // Variables to keep track of scores and balls
+    let ballsRemaining;
+    let batterScore = 0;
+    let bowlerScore = 0;
+    let keeperScore = 0;
+
+    // Start the game
+    function startGame() {
+      // Get the number of balls
+      ballsRemaining = parseInt(document.getElementById('numBalls').value);
+
+      // Validate input
+      if (isNaN(ballsRemaining) || ballsRemaining <= 0) {
+        alert("Please enter a valid number of balls.");
+        return;
+      }
+
+      // Hide the Start button and show the Play Next Ball button
+      document.getElementById('startBtn').style.display = 'none';
+      document.getElementById('nextBallBtn').style.display = 'inline-block';
+
+      // Reset scores
+      batterScore = 0;
+      bowlerScore = 0;
+      keeperScore = 0;
+      document.getElementById('scoreBoard').innerHTML = `
+        <span id="batterScore">Batter - 0</span>
+        <span id="bowlerScore">Bowler - 0</span>
+        <span id="keeperScore">Wicketkeeper - 0</span>
+      `;
+
+      // Update balls remaining
+      document.getElementById('currentBall').textContent = `Balls Remaining: ${ballsRemaining}`;
+      document.getElementById('description').textContent = '';
+    }
+
+    // Function to play each ball
+    function playBall() {
+      if (ballsRemaining <= 0) {
+        alert(`Game Over! Final scores - Batter: ${batterScore}, Bowler: ${bowlerScore}, Wicketkeeper: ${keeperScore}`);
+        showFinalScores();
+        return;
+      }
+
+      ballsRemaining--;
+      document.getElementById('currentBall').textContent = `Balls Remaining: ${ballsRemaining}`;
+
+      // Random score generation for each ball (1-16)
+      const ballResult = Math.floor(Math.random() * 15) + 1;
+      let description = '';
+
+      // Update scores based on the ball result
+      if (ballResult >= 1 && ballResult <= 3) {
+        batterScore += 1; // 1 to 3 -> Batter gets 1 point
+        description = `${batterName} hits a single! +1 point for Batter.`;
+      } else if (ballResult >= 4 && ballResult <= 6) {
+        batterScore += 2; // 4 to 6 -> Batter gets 2 points
+        description = `${batterName} hits a boundary! +2 points for Batter.`;
+      } else if (ballResult >= 7 && ballResult <= 9) {
+        batterScore += 3; // 7 to 9 -> Batter gets 3 points
+        description = `${batterName} hits a fine shot! +3 points for Batter.`;
+      } else if (ballResult >= 10 && ballResult <= 12) {
+        batterScore += 4; // 10 to 12 -> Batter gets 4 points
+        description = `${batterName} hits a magnificent shot! +4 points for Batter.`;
+      } else if (ballResult === 13) {
+        batterScore += 5; // 13 -> Batter gets 5 points
+        description = `${batterName} scores a super shot! +5 points for Batter.`;
+      } else if (ballResult === 14) {
+        bowlerScore += 1; // 14 -> Bowler gets 1 point for taking a wicket
+        description = `${bowlerName} takes a wicket! +1 point for Bowler.`;
+      } else if (ballResult === 15) {
+        keeperScore += 1; // 15 -> Wicketkeeper gets 1 point for a catch
+        description = `${keeperName} takes a great catch! +1 point for Wicketkeeper.`;
+      }
+
+      // Update the scoreboard dynamically
+      document.getElementById('batterScore').textContent = `${batterName} - ${batterScore}`;
+      document.getElementById('bowlerScore').textContent = `${bowlerName} - ${bowlerScore}`;
+      document.getElementById('keeperScore').textContent = `${keeperName} - ${keeperScore}`;
+
+      // Display the description of the action
+      document.getElementById('description').textContent = description;
+    }
+
+    // Display final scores with player photos
+    function showFinalScores() {
+      const finalScoresHTML = `
+        <div class="score-with-photo">
+          <img class="player-photo" src="${batterPhoto}" alt="Batter Photo">
+          <span>${batterName} - ${batterScore}</span>
+        </div>
+        <div class="score-with-photo">
+          <img class="player-photo" src="${bowlerPhoto}" alt="Bowler Photo">
+          <span>${bowlerName} - ${bowlerScore}</span>
+        </div>
+        <div class="score-with-photo">
+          <img class="player-photo" src="${keeperPhoto}" alt="Wicketkeeper Photo">
+          <span>${keeperName} - ${keeperScore}</span>
+        </div>
+      `;
+      document.getElementById('scoreBoard').innerHTML = finalScoresHTML;
+      document.getElementById('restartBtn').style.display = 'inline-block';  // Show restart button
+    }
+      // Function to toggle menu visibility
+      function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('active');
+    }
+
+    // Restart the game
+    function restartGame() {
+      batterScore = 0;
+      bowlerScore = 0;
+      keeperScore = 0;
+      ballsRemaining = 0;
+      document.getElementById('currentBall').textContent = 'Balls Remaining: 0';
+      document.getElementById('scoreBoard').innerHTML = `
+        <span id="batterScore">Batter - 0</span>
+        <span id="bowlerScore">Bowler - 0</span>
+        <span id="keeperScore">Wicketkeeper - 0</span>
+      `;
+      document.getElementById('description').textContent = '';
+
+      // Hide final scores and restart button
+      document.getElementById('restartBtn').style.display = 'none';
+
+      // Show the Start button again
+      document.getElementById('startBtn').style.display = 'inline-block';
+    }
+  </script>
+</body>
+</html>

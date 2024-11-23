@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Select a Batter</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Select a Batter</h1>
+     <!-- Menu Icon -->
+  <div class="menu" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="menu-dropdown">
+    <a href="index.html">Home</a>
+    <a href="batter.html">Select Batter</a>
+    <a href="bowler.html">Select Bowler</a>
+    <a href="wicketkeeper.html">Select Wicketkeeper</a>
+    <a href="play.html">Go to Play Page</a>
+  </div>
+  
+  
+  <div class="player-list">
+    <div class="player-card">
+      <img src="images_batter/gill_batter.png" alt="Shubman Gill">
+      <p>Shubman Gill</p>
+      <button onclick="selectPlayer('Shubman Gill', 'images_batter/gill_batter.png')">Select</button>
+    </div>
+    <div class="player-card">
+      <img src="images_batter/rohith_batter.png" alt="Rohit Sharma">
+      <p>Rohit Sharma</p>
+      <button onclick="selectPlayer('Rohit Sharma', 'images_batter/rohith_batter.png')">Select</button>
+    </div>
+    <div class="player-card">
+      <img src="images_batter/virat_batter.png" alt="Virat Kohli">
+      <p>Virat Kohli</p>
+      <button onclick="selectPlayer('Virat Kohli', 'images_batter/virat_batter.png')">Select</button>
+    </div>
+    <div class="player-card">
+      <img src="images_AR/hardic_AR.png" alt="Hardik Pandya">
+      <p>Hardik Pandya</p>
+      <button onclick="selectPlayer('Hardik Pandya', 'images_batter/hardic_AR.png')">Select</button>
+    </div>
+ 
+  </div>
+  <!-- Next Button -->
+  <button class="next-btn" onclick="nextPage()">Next</button>
+
+  <script>
+     // Function to toggle menu visibility
+     function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('active');
+    }
+
+    // Function to select player
+    function selectPlayer(name, photo) {
+      localStorage.setItem('batter', JSON.stringify({ name, photo }));
+      // alert(`${name} selected as Batter!`);
+      
+    }
+    function nextPage() {
+      // Redirect to the next page
+      window.location.href = 'bowler.html'; // Replace with the actual next page URL
+    }
+  </script>
+</body>
+</html>

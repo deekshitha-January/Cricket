@@ -1,0 +1,144 @@
+* {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+  
+h1 {
+    background-color: #081b31;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white; /* Changed to white */
+    margin: 5px 0;
+    transition: transform 0.3s;
+}
+
+/* Dropdown Menu Styling */
+.menu-dropdown {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.menu-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #081b31;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.menu-dropdown a:hover {
+    background-color: #081b31;
+    color: white;
+}
+
+/* Active class to show the dropdown menu */
+.menu.active + .menu-dropdown {
+    display: block;
+}
+
+.player-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+  
+.player-card {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    width: 150px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+.player-card img {
+    width: 100%;
+    border-radius: 10px;
+}
+  
+.player-card p {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+  
+.player-card button {
+    margin-top: 10px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+    background: #081b31;
+}
+  
+.player-card button:hover {
+    background: linear-gradient(to right, #63e3b1, #1a69ad);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.next-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #081b31;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+    z-index: 1000;
+}
+
+.next-btn:hover {
+    background-color: #1a69ad;
+    transform: translateY(-2px);
+}

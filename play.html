@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cricket Game</title>
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f4;
+}
+
+    h1 {
+    background-color: #081b31;
+    color: #fff;
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.menu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.menu span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: white; /* Changed to white */
+    margin: 5px 0;
+    transition: transform 0.3s;
+}
+
+/* Dropdown Menu Styling */
+.menu-dropdown {
+    display: none;
+    position: fixed;
+    top: 50px;
+    left: 10px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.menu-dropdown a {
+    display: block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #081b31;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+}
+
+.menu-dropdown a:last-child {
+    border-bottom: none;
+}
+
+.menu-dropdown a:hover {
+    background-color: #081b31;
+    color: white;
+}
+
+/* Active class to show the dropdown menu */
+.menu.active + .menu-dropdown {
+    display: block;
+}
+
+    .player-display {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .player-card {
+      text-align: center;
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .player-card img {
+      width: 150px;
+      border-radius: 10px;
+    }
+
+    .start-play-btn {
+      margin-top: 20px;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: white;
+      background-color: #081b31;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .start-play-btn:hover {
+      background-color: #1a69ad;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+  <h1>Selected Players</h1>
+   <!-- Menu Icon -->
+   <div class="menu" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="menu-dropdown">
+    <a href="index.html">Home</a>
+    <a href="batter.html">Select Batter</a>
+    <a href="bowler.html">Select Bowler</a>
+    <a href="wicketkeeper.html">Select Wicketkeeper</a>
+    <a href="play.html">Go to Play Page</a>
+  </div>
+
+  <div class="player-display">
+    <!-- Display selected Batter -->
+    <div class="player-card" id="batterCard">
+      <h2>Batter</h2>
+      <img src="" alt="Batter" id="batterPhoto">
+      <p id="batterName"></p>
+    </div>
+    <!-- Display selected Bowler -->
+    <div class="player-card" id="bowlerCard">
+      <h2>Bowler</h2>
+      <img src="" alt="Bowler" id="bowlerPhoto">
+      <p id="bowlerName"></p>
+    </div>
+    <!-- Display selected Wicketkeeper -->
+    <div class="player-card" id="keeperCard">
+      <h2>Wicketkeeper</h2>
+      <img src="" alt="Wicketkeeper" id="keeperPhoto">
+      <p id="keeperName"></p>
+    </div>
+    
+
+  <!-- Start Play Button -->
+  <button class="start-play-btn" onclick="startGame()">Start Play</button>
+
+  <script>
+    // Retrieve player data from localStorage
+    const batter = JSON.parse(localStorage.getItem('batter'));
+    const bowler = JSON.parse(localStorage.getItem('bowler'));
+    const keeper = JSON.parse(localStorage.getItem('wicketkeeper'));
+
+    // Display Batter details
+    if (batter) {
+      document.getElementById('batterPhoto').src = batter.photo;
+      document.getElementById('batterName').textContent = batter.name;
+    }
+
+    // Display Bowler details
+    if (bowler) {
+      document.getElementById('bowlerPhoto').src = bowler.photo;
+      document.getElementById('bowlerName').textContent = bowler.name;
+    }
+
+    // Display Wicketkeeper details
+    document.addEventListener('DOMContentLoaded', () => {
+  const keeper = JSON.parse(localStorage.getItem('wicketkeeper'));
+  if (keeper) {
+    document.getElementById('keeperPhoto').src = keeper.photo;
+    document.getElementById('keeperName').textContent = keeper.name;
+  }
+});
+
+  // Function to toggle menu visibility
+  function toggleMenu() {
+      const menu = document.querySelector('.menu');
+      menu.classList.toggle('active');
+    }
+
+    // Function to start the game
+    function startGame() {
+      alert("Game Started! Let the match begin!");
+      // Redirect to the gameplay page
+      window.location.href = 'score.html'; // Update with actual gameplay page URL
+    }
+  </script>
+</body>
+</html>
